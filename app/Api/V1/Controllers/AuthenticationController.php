@@ -7,8 +7,6 @@ use App\User;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\RegisterRequest;
 use App\Api\V1\Requests\LoginRequest;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use JWTAuth;
 
 class AuthenticationController extends Controller
@@ -32,10 +30,10 @@ class AuthenticationController extends Controller
     	$acceptedField = $request->only('email', 'password');
     	try {
     		if (! $token = JWTAuth::attempt($acceptedField)){
-    			 throw new AccessDeniedHttpException();
+                return response()->json(['error' => 'invalid_credentials'], 401);
     		}
     	} catch (JWTException $e) {
-    			throw new Exception(500);
+                return response()->json(['error' => 'could_not_create_token'], 500);
     			
     	}
 
