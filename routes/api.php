@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +12,9 @@ use Illuminate\Http\Request;
  */
 $api = app('Dingo\Api\Routing\Router');
 
-
-
 $api->version('v1', function ($api) {
-    $api->get('auth/register', 'App\Api\V1\Controllers\AuthenticationController@register');
+    $api->group(['namespace' => 'App\Api\V1\Controllers'], function ($api) {
+        $api->post('auth/register', 'AuthenticationController@register');
+        $api->post('auth/login', 'AuthenticationController@login');
+    });
 });
