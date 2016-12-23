@@ -16,5 +16,14 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Api\V1\Controllers'], function ($api) {
         $api->post('auth/register', 'AuthenticationController@register');
         $api->post('auth/login', 'AuthenticationController@login');
+
+        /*
+         * start of the protected routes
+         *
+         */
+        $api->group(['middleware' => 'jwt.auth'], function ($api) {
+        	$api->get('getcurrentuser', 'AuthenticationController@getCurrentUser');
+        });
+
     });
 });

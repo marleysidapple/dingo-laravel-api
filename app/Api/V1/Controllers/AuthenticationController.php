@@ -39,4 +39,11 @@ class AuthenticationController extends Controller
 
     	return response()->json(['status' => 'ok', 'token' => $token], 200);
     }
+
+
+    public function getCurrentUser()
+    {
+    	$user = JWTAuth::parseToken()->authenticate();
+    	return response()->json($user);
+    }
 }
