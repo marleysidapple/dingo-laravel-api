@@ -17,6 +17,15 @@ $api->version('v1', function ($api) {
         $api->post('auth/register', 'AuthenticationController@register');
         $api->post('auth/login', 'AuthenticationController@login');
 
+
+        /*
+        * todos routes
+        */
+        $api->get('todos/{id?}', 'TodoController@index');
+        $api->post('todos', 'TodoController@store');
+
+
+
         /*
          * start of the protected routes
          *
